@@ -6,4 +6,5 @@
     <string name="title_about">Acerca de</string>
     <string name="text_about">Aplicación desarrollada por \n <b>Lindsay Barrero Martínez.</b></string>
     <string name="accept">Aceptar</string>
+    <string name="bt_continue">Continuar</string>
 </resources>
