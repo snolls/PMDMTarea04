@@ -38,6 +38,9 @@
     <include
         android:id="@+id/includelayout"
         layout="@layout/guide" />
+    <include
+        android:id="@+id/guide2"
+        layout="@layout/guide_step2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
