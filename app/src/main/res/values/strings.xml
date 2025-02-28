@@ -4,7 +4,10 @@
     <string name="characters">Personajes</string>
     <string name="collectibles">Coleccionables</string>
     <string name="title_about">Acerca de</string>
-    <string name="text_about">Aplicación desarrollada por \n <b>Lindsay Barrero Martínez.</b></string>
+    <string name="text_about">Aplicación desarrollada por \n <b>Alejandro Perez Soto.</b></string>
     <string name="accept">Aceptar</string>
-    <string name="bt_continue">Continuar</string>
+    <string name="guide_description">Prepárate para explorar el mundo mágico de esta aplicación inspirada en SPYRO\n\nPulse COMENZAR para iniciar la GUIA Interactiva</string>
+    <string name="spyro_logo">Spyro Logo</string>
+    <string name="start_btn">COMENZAR</string>
+    <string name="bienvenido">BIENVENIDO</string>
 </resources>

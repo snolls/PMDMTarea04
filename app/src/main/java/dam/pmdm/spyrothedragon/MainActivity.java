@@ -1,29 +1,38 @@
 package dam.pmdm.spyrothedragon;
 
+import static androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private GuideBinding guideBinding;
     NavController navController = null;
+
+    private Boolean needToStartGuide = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        guideBinding = binding.includelayout;
         setContentView(binding.getRoot());
 
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -48,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        initializeGuide();
+
+    }
+
+    private void initializeGuide() {
+        binding.constraintLayout.setEnabled(false);
+        binding.constraintLayout.setClickable(false);
+        binding.constraintLayout.setFocusable(false);
+       /* if(needToStartGuide){
+
+            guideBinding.guideLayout.setVisibility(View.VISIBLE);
+        }*/
     }
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
