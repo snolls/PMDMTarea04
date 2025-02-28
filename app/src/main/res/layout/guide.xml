@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/guideLayout"
-    android:background="@color/purple_transparent">
+    android:background="@color/purple_transparent"
+    android:visibility="gone">
 
     <TextView
         android:id="@+id/tvWelcomeTitle"

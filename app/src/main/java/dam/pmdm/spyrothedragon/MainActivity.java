@@ -62,15 +62,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeGuide() {
-        binding.constraintLayout.setEnabled(false);
-        binding.constraintLayout.setClickable(false);
-        binding.constraintLayout.setFocusable(false);
-       /* if(needToStartGuide){
-
-            guideBinding.guideLayout.setVisibility(View.VISIBLE);
-        }*/
+        if (needToStartGuide) {
+            guideBinding.getRoot().setVisibility(View.VISIBLE);
+            // Bloquear interacción con el fondo interceptando los eventos táctiles
+            guideBinding.getRoot().setOnTouchListener((v, event) -> true);
+        }
     }
-
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.nav_characters)
             navController.navigate(R.id.navigation_characters);
