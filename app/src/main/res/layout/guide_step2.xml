@@ -1,55 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/guideStep2Layout"
     android:background="@color/purple_transparent"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:ignore="MissingConstraints">
 
-    <!-- Bocadillo informativo con animación -->
-    <LinearLayout
-        android:id="@+id/bocadillo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bocadillo_background"
-        android:padding="16dp"
-        android:orientation="vertical"
-        android:alpha="0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView
-            android:id="@+id/tvGuideCharacters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aquí podrás explorar a todos los personajes del mundo de Spyro."
-            android:textColor="@android:color/white"
-            android:textSize="18sp"/>
-
-        <!-- Botón para finalizar la guía -->
-        <Button
-            android:id="@+id/btnFinishGuide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Entendido"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="10dp"/>
-    </LinearLayout>
-
-    <!-- Botón para omitir la guía en la segunda pantalla -->
+    <!-- Botón para omitir la guía (arriba a la derecha, fondo transparente) -->
     <Button
         android:id="@+id/btnSkipGuide2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Omitir Guía"
+        android:text="@string/omitir"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- Anillo resaltador sobre la opción "Personajes" -->
+    <View
+        android:id="@+id/highlightRing"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/ring_marked"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_marginBottom="-5dp"
+        android:layout_marginStart="32dp"/>
+
+    <!-- Texto sobre el anillo -->
+    <TextView
+        android:id="@+id/tvGuideCharacters"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:text="@string/guide_char"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/highlightRing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Flecha para pasar al paso 3 -->
+    <ImageView
+        android:id="@+id/btnNextStep"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_arrow_right"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/highlightRing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideStep2Binding;
@@ -89,18 +92,47 @@ public class MainActivity extends AppCompatActivity {
         // Mostrar la segunda pantalla de la guía
         guideStep2Binding.getRoot().setVisibility(View.VISIBLE);
 
-        // Bloquear eventos táctiles en la segunda pantalla
-        guideStep2Binding.getRoot().setOnTouchListener((v, event) -> true);
+        // Resaltar la pestaña "Personajes"
+        binding.navView.getMenu().getItem(0).setChecked(true);
 
-        // Animación de entrada del bocadillo informativo
-        guideStep2Binding.bocadillo.setAlpha(0f);
-        guideStep2Binding.bocadillo.animate().alpha(1f).setDuration(500).start();
+        // Animar el anillo resaltador sobre "Personajes"
+        guideStep2Binding.highlightRing.setAlpha(0f);
+        guideStep2Binding.highlightRing.animate()
+                .alpha(1f)
+                .setDuration(500)
+                .start();
 
-        // Botón para cerrar la guía en la segunda pantalla
-        guideStep2Binding.btnFinishGuide.setOnClickListener(v -> closeGuide());
+        // Mostrar el texto después de la animación del anillo
+        guideStep2Binding.tvGuideCharacters.setAlpha(0f);
+        guideStep2Binding.tvGuideCharacters.setVisibility(View.VISIBLE);
+        guideStep2Binding.tvGuideCharacters.animate()
+                .alpha(1f)
+                .setDuration(500)
+                .setStartDelay(300)
+                .start();
 
+        // Mostrar la flecha después de la animación del texto
+        guideStep2Binding.btnNextStep.setAlpha(0f);
+        guideStep2Binding.btnNextStep.setVisibility(View.VISIBLE);
+        guideStep2Binding.btnNextStep.animate()
+                .alpha(1f)
+                .setDuration(500)
+                .setStartDelay(600)
+                .start();
 
+        // Configurar la flecha para pasar al paso 3
+        guideStep2Binding.btnNextStep.setOnClickListener(v -> showGuideStep3());
+
+        // Configurar botón de omitir la guía
+        guideStep2Binding.btnSkipGuide2.setOnClickListener(v -> closeGuide());
     }
+
+
+    private void showGuideStep3() {
+        // TODO: Aquí se implementará la lógica para mostrar el paso 3
+        Toast.makeText(this, "Paso 3 en construcción", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void closeGuide() {
         // Ocultar la segunda pantalla de la guía si está visible
@@ -116,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("GuideCompleted", true);
         editor.apply();*/
     }
-
-
 
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
