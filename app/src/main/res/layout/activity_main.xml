@@ -36,11 +36,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     <include
-        android:id="@+id/includelayout"
+        android:id="@+id/guide"
         layout="@layout/guide" />
     <include
         android:id="@+id/guide2"
         layout="@layout/guide_step2" />
+    <include
+        android:id="@+id/guide3"
+        layout="@layout/guide_step3" />
+    <include
+        android:id="@+id/guide4"
+        layout="@layout/guide_step4"/>
+    <include
+        android:id="@+id/guide5"
+        layout="@layout/guide_step5"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

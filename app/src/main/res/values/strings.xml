@@ -12,4 +12,7 @@
     <string name="bienvenido">BIENVENIDO</string>
     <string name="guide_char">Aquí podrás explorar a todos los personajes del mundo de Spyro.</string>
     <string name="omitir">Omitir</string>
+    <string name="guide_worlds">En este apartado encontraras todos los mundos disponibles en el universo Spyro</string>
+    <string name="guide_collectibles">En este apartado encontaras todos los coleccionables disponibles del universo Spyro</string>
+    <string name="guide_info">Aqui encontraras información sobre el creador de la APP</string>
 </resources>
