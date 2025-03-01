@@ -35,31 +35,36 @@
         android:layout_marginBottom="-5dp"
         android:layout_marginStart="32dp"/>
 
-    <!-- Texto sobre el anillo -->
+    <!-- Contenedor del Texto con fondo morado -->
     <TextView
         android:id="@+id/tvGuideCharacters"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/guide_char"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:background="@color/purple"
+        android:gravity="center"
         android:textAlignment="center"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/highlightRing"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:alpha="0"/>
 
-    <!-- Flecha para pasar al paso 3 -->
+    <!-- Flecha para pasar al siguiente paso -->
     <ImageView
         android:id="@+id/btnNextStep"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_arrow_right"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/highlightRing"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
