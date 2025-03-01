@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="35dp"/>
 
     <!-- Flecha indicadora del icono de información (posición fija en la parte superior derecha) -->
     <ImageView
