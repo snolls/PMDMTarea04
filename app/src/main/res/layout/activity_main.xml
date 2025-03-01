@@ -50,7 +50,11 @@
     <include
         android:id="@+id/guide5"
         layout="@layout/guide_step5"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/guide6"
+        layout="@layout/guide_step6"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

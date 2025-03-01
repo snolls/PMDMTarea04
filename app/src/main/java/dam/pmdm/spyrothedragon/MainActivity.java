@@ -1,12 +1,16 @@
 package dam.pmdm.spyrothedragon;
 
+
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
@@ -24,6 +28,7 @@ import dam.pmdm.spyrothedragon.databinding.GuideStep2Binding;
 import dam.pmdm.spyrothedragon.databinding.GuideStep3Binding;
 import dam.pmdm.spyrothedragon.databinding.GuideStep4Binding;
 import dam.pmdm.spyrothedragon.databinding.GuideStep5Binding;
+import dam.pmdm.spyrothedragon.databinding.GuideStep6Binding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private GuideStep3Binding guideStep3Binding;
     private GuideStep4Binding guideStep4Binding;
     private GuideStep5Binding guideStep5Binding;
+    private GuideStep6Binding guideStep6Binding;
+    private MediaPlayer mediaPlayer;
+    private boolean[] stepsCompleted = new boolean[6]; // 6 pasos en total (0-5)
     private NavController navController;
     private boolean needToStartGuide;
     private SharedPreferences preferences;
@@ -55,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         guideStep3Binding = GuideStep3Binding.bind(findViewById(R.id.guide3));
         guideStep4Binding = GuideStep4Binding.bind(findViewById(R.id.guide4));
         guideStep5Binding = GuideStep5Binding.bind(findViewById(R.id.guide5));
+        guideStep6Binding = GuideStep6Binding.bind(findViewById(R.id.guide6));
 
         // Configurar NavController
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -86,18 +95,25 @@ public class MainActivity extends AppCompatActivity {
         if (needToStartGuide) {
             // Mostrar la primera pantalla de la guía
             guideBinding.getRoot().setVisibility(View.VISIBLE);
+            stepsCompleted[0] = true; // Paso Bienvenida completado
 
             // Bloquear eventos táctiles en la guía
             guideBinding.getRoot().setOnTouchListener((v, event) -> true);
 
             // Botón para avanzar a la segunda pantalla de la guía
-            guideBinding.btnStartGuide.setOnClickListener(v -> showGuideStep2());
+            guideBinding.btnStartGuide.setOnClickListener(v -> {
+                playSound(); // Reproducir sonido primero
+                v.postDelayed(this::showGuideStep2, 150); // Esperar 150ms antes de cambiar la pantalla
+            });
+
 
 
         }
     }
 
     private void showGuideStep2() {
+        stepsCompleted[1] = true; // Paso 1 completado
+        applyTransition(guideStep2Binding.getRoot(), guideBinding.getRoot(), R.transition.fade_in, R.transition.fade_out);
         // Ocultar la primera pantalla de la guía
         guideBinding.getRoot().setVisibility(View.GONE);
 
@@ -172,15 +188,23 @@ public class MainActivity extends AppCompatActivity {
                 .start();
 
         // Configurar la flecha para avanzar al paso 3
-        guideStep2Binding.btnNextStep.setOnClickListener(v -> showGuideStep3());
+        guideStep2Binding.btnNextStep.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep3, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
 
         // Configurar el botón de omitir la guía
-        guideStep2Binding.btnSkipGuide2.setOnClickListener(v -> closeGuide());
+        guideStep2Binding.btnSkipGuide2.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep6, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
     }
 
 
-
     private void showGuideStep3() {
+        stepsCompleted[2] = true; // Paso 2 completado
+        applyTransition(guideStep3Binding.getRoot(), guideStep2Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
+
         // Ocultar la segunda pantalla de la guía
         guideStep2Binding.getRoot().setVisibility(View.GONE);
 
@@ -258,14 +282,23 @@ public class MainActivity extends AppCompatActivity {
                 .start();
 
         // Configurar la flecha para avanzar al paso 4
-        guideStep3Binding.btnNextStep3.setOnClickListener(v -> showGuideStep4());
+        guideStep3Binding.btnNextStep3.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep4, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
 
         // Configurar el botón de omitir la guía
-        guideStep3Binding.btnSkipGuide3.setOnClickListener(v -> closeGuide());
+        guideStep3Binding.btnSkipGuide3.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep6, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
     }
 
 
     private void showGuideStep4() {
+        stepsCompleted[3] = true; // Paso 3 completado
+
+        applyTransition(guideStep4Binding.getRoot(), guideStep3Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
         // Ocultar la tercera pantalla de la guía
         guideStep3Binding.getRoot().setVisibility(View.GONE);
 
@@ -343,18 +376,25 @@ public class MainActivity extends AppCompatActivity {
                 .start();
 
         // Configurar la flecha para ir al paso 5
-        guideStep4Binding.btnNextStep4.setOnClickListener(v -> showGuideStep5());
+        guideStep4Binding.btnNextStep4.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep5, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
 
         // Configurar el botón de omitir la guía
-        guideStep4Binding.btnSkipGuide4.setOnClickListener(v -> closeGuide());
+        guideStep4Binding.btnSkipGuide4.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep6, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
     }
 
     private void showGuideStep5() {
+        stepsCompleted[4] = true; // Paso 4 completado
+        applyTransition(guideStep5Binding.getRoot(), guideStep4Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
         // Ocultar la cuarta pantalla de la guía
         guideStep4Binding.getRoot().setVisibility(View.GONE);
 
         // Mostrar la quinta pantalla de la guía
-        GuideStep5Binding guideStep5Binding = GuideStep5Binding.bind(findViewById(R.id.guide5));
         guideStep5Binding.getRoot().setVisibility(View.VISIBLE);
 
         // Bloquear eventos táctiles en la guía
@@ -381,54 +421,160 @@ public class MainActivity extends AppCompatActivity {
                 .setInterpolator(new DecelerateInterpolator())
                 .start();
 
-        // Animación de la flecha para finalizar la guía
-        guideStep5Binding.btnNextStep5.setAlpha(0f);
-        guideStep5Binding.btnNextStep5.setTranslationX(50f);
-        guideStep5Binding.btnNextStep5.setVisibility(View.VISIBLE);
-        guideStep5Binding.btnNextStep5.animate()
+        // Animación del botón "Finalizar Guía"
+        guideStep5Binding.btnFinishGuide.setAlpha(0f);
+        guideStep5Binding.btnFinishGuide.setTranslationY(50f);
+        guideStep5Binding.btnFinishGuide.setVisibility(View.VISIBLE);
+        guideStep5Binding.btnFinishGuide.animate()
                 .alpha(1f)
-                .translationX(0f)
+                .translationY(0f)
                 .setDuration(700)
                 .setStartDelay(600)
                 .setInterpolator(new AccelerateDecelerateInterpolator())
                 .start();
 
-        // Configurar la flecha para finalizar la guía
-        guideStep5Binding.btnNextStep5.setOnClickListener(v -> closeGuide());
+        // Configurar el botón para finalizar la guía
+        guideStep5Binding.btnFinishGuide.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::showGuideStep6, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
+    }
 
-        // Configurar el botón de omitir la guía
-        guideStep5Binding.btnSkipGuide5.setOnClickListener(v -> closeGuide());
+    private void showGuideStep6() {
+        closeScreensGuide();
+
+        // Mostrar la pantalla 6
+        guideStep6Binding.getRoot().setVisibility(View.VISIBLE);
+        guideStep6Binding.getRoot().setOnTouchListener((v, event) -> true);
+
+        // Generar el resumen dinámico de los pasos completados
+        String[] pasos = {
+                "Paso 1: Introducción",
+                "Paso 2: Personajes",
+                "Paso 3: Mundos",
+                "Paso 4: Coleccionables",
+                "Paso 5: Icono de Información"
+        };
+
+        StringBuilder resumen = new StringBuilder();
+        for (int i = 0; i < pasos.length; i++) {
+            if (stepsCompleted[i]) {
+                resumen.append("✔ ").append(pasos[i]).append("\n");
+            } else {
+                resumen.append("✖ ").append(pasos[i]).append("\n");
+            }
+        }
+
+        // Establecer el texto con los pasos completados o no
+        guideStep6Binding.tvGuideSummary.setText(resumen.toString());
+
+        // Animación del título y lista de pasos
+        guideStep6Binding.tvGuideSummaryTitle.setAlpha(0f);
+        guideStep6Binding.tvGuideSummaryTitle.setTranslationY(-30f);
+        guideStep6Binding.tvGuideSummaryTitle.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(700)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+
+        guideStep6Binding.tvGuideSummary.setAlpha(0f);
+        guideStep6Binding.tvGuideSummary.setTranslationY(30f);
+        guideStep6Binding.tvGuideSummary.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(700)
+                .setStartDelay(300)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+
+        // Animación del botón "Comenzar"
+        guideStep6Binding.btnStartApp.setAlpha(0f);
+        guideStep6Binding.btnStartApp.setTranslationY(50f);
+        guideStep6Binding.btnStartApp.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(700)
+                .setStartDelay(600)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .start();
+
+        // Configurar el botón para finalizar la guía
+        guideStep6Binding.btnStartApp.setOnClickListener(v -> {
+            playSound(); // Reproducir sonido primero
+            v.postDelayed(this::closeGuide, 150); // Esperar 150ms antes de cambiar la pantalla
+        });
     }
 
 
-
-
-
     private void closeGuide() {
-        // Ocultar cualquier pantalla de la guía si está visible
-        if (guideStep2Binding.getRoot().getVisibility() == View.VISIBLE) {
-            guideStep2Binding.getRoot().setVisibility(View.GONE);
-        }
-        if (guideStep3Binding.getRoot().getVisibility() == View.VISIBLE) {
-            guideStep3Binding.getRoot().setVisibility(View.GONE);
-        }
-        if (guideStep4Binding.getRoot().getVisibility() == View.VISIBLE) {
-            guideStep4Binding.getRoot().setVisibility(View.GONE);
-        }
-        if (guideStep5Binding.getRoot().getVisibility() == View.VISIBLE) {
-            guideStep5Binding.getRoot().setVisibility(View.GONE);
-        }
-        // Ocultar la pantalla inicial si no hay otras visibles
-        if (guideBinding.getRoot().getVisibility() == View.VISIBLE) {
-            guideBinding.getRoot().setVisibility(View.GONE);
+        if (guideStep6Binding.getRoot().getVisibility() == View.VISIBLE) {
+            guideStep6Binding.getRoot().setVisibility(View.GONE);
         }
 
         /*// Marcar la guía como completada para que no se vuelva a mostrar
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("GuideCompleted", true);
         editor.apply();*/
+
+        // Seleccionar y mostrar la pestaña "Personajes"
+        binding.navView.getMenu().findItem(R.id.nav_characters).setChecked(true);
+
+        // Forzar la navegación a la pestaña "Personajes"
+        navController.navigate(R.id.navigation_characters);
     }
 
+
+    private void closeScreensGuide() {
+        // Ocultar cualquier pantalla de la guía si está visible
+        if (guideStep2Binding.getRoot().getVisibility() == View.VISIBLE) {
+            applyTransition(guideStep6Binding.getRoot(), guideStep2Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
+            guideStep2Binding.getRoot().setVisibility(View.GONE);
+        }
+        if (guideStep3Binding.getRoot().getVisibility() == View.VISIBLE) {
+            applyTransition(guideStep6Binding.getRoot(), guideStep3Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
+            guideStep3Binding.getRoot().setVisibility(View.GONE);
+        }
+        if (guideStep4Binding.getRoot().getVisibility() == View.VISIBLE) {
+            applyTransition(guideStep6Binding.getRoot(), guideStep4Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
+            guideStep4Binding.getRoot().setVisibility(View.GONE);
+        }
+        if (guideStep5Binding.getRoot().getVisibility() == View.VISIBLE) {
+            applyTransition(guideStep6Binding.getRoot(), guideStep5Binding.getRoot(), R.transition.fade_in, R.transition.fade_out);
+            guideStep5Binding.getRoot().setVisibility(View.GONE);
+        }
+        if (guideBinding.getRoot().getVisibility() == View.VISIBLE) {
+            applyTransition(guideStep6Binding.getRoot(), guideBinding.getRoot(), R.transition.fade_in, R.transition.fade_out);
+            guideBinding.getRoot().setVisibility(View.GONE);
+        }
+
+    }
+
+    // Método para reproducir el sonido
+    private void playSound() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release(); // Liberar si ya se estaba usando antes
+        }
+        mediaPlayer = MediaPlayer.create(this, R.raw.spyro); // Nombre del archivo en res/raw
+        mediaPlayer.start();
+    }
+
+    private void applyTransition(View enterView, View exitView, int enterAnim, int exitAnim) {
+        Animation enterAnimation = AnimationUtils.loadAnimation(this, enterAnim);
+        Animation exitAnimation = AnimationUtils.loadAnimation(this, exitAnim);
+
+        // Aplicar animación de salida
+        if (exitView != null) {
+            exitView.startAnimation(exitAnimation);
+            exitView.setVisibility(View.GONE);
+        }
+
+        // Aplicar animación de entrada
+        if (enterView != null) {
+            enterView.setVisibility(View.VISIBLE);
+            enterView.startAnimation(enterAnimation);
+        }
+    }
 
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
@@ -463,5 +609,14 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage(R.string.text_about)
                 .setPositiveButton(R.string.accept, null)
                 .show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

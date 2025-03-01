@@ -15,4 +15,7 @@
     <string name="guide_worlds">En este apartado encontraras todos los mundos disponibles en el universo Spyro</string>
     <string name="guide_collectibles">En este apartado encontaras todos los coleccionables disponibles del universo Spyro</string>
     <string name="guide_info">Aqui encontraras información sobre el creador de la APP</string>
+    <string name="end_guide">Finalizar Guía</string>
+    <string name="resumen">Resumen de la Guía</string>
+    <string name="start_app">Comenzar</string>
 </resources>
