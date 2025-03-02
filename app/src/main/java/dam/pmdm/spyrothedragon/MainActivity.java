@@ -512,10 +512,10 @@ public class MainActivity extends AppCompatActivity {
             guideStep6Binding.getRoot().setVisibility(View.GONE);
         }
 
-        /*// Marcar la guía como completada para que no se vuelva a mostrar
+        // Marcar la guía como completada para que no se vuelva a mostrar
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("GuideCompleted", true);
-        editor.apply();*/
+        editor.apply();
 
         // Seleccionar y mostrar la pestaña "Personajes"
         binding.navView.getMenu().findItem(R.id.nav_characters).setChecked(true);
